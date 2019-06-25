@@ -29,7 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/signin").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.GET, "/vehicles/**").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN") // allowed if signed in with ADMIN role
-                .anyRequest().denyAll(); // anything else is denied
+                .antMatchers(HttpMethod.GET, "/me").hasRole("ADMIN")
+                .anyRequest().denyAll() // anything else is denied
+                // new part
+                .and()
+                .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
