@@ -26,7 +26,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         String token = jwtTokenServices.getTokenFromRequest((HttpServletRequest) req);
         if (token != null && jwtTokenServices.validateToken(token)) {
             Authentication auth = jwtTokenServices.parseUserFromTokenInfo(token);
-            // Marks the user ad authenticated.
+            // Marks the user as authenticated.
             // If this code does not run, the request will fail for routes that are configured to need authentication
             SecurityContextHolder.getContext().setAuthentication(auth);
         }

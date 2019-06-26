@@ -35,7 +35,7 @@ public class JwtTokenServices {
 
     // Creates a JWT token
     public String createToken(String username, List<String> roles) {
-        // Add a custom filed to the token
+        // Add a custom field to the token
         Claims claims = Jwts.claims().setSubject(username);
         claims.put(rolesFieldName, roles);
 
